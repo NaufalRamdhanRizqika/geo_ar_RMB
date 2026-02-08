@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Geothermal AR - Edukasi Energi Panas Bumi</title>
+    
+    <!-- A-Frame Core -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <!-- AR.js -->
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/aframe/build/aframe-ar.js"></script>
+    
+    <!-- Scene Configuration -->
+    <script src="js/scene-config.js"></script>
+    
+    <style>
+        /* ===================================================================
+           RESET & BASE STYLES
+           =================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: fixed;
+            background: #000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* ===================================================================
+           AR SCENE CONTAINER
+           =================================================================== */
+        #ar-scene {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Force A-Frame canvas to be full screen */
+        #ar-scene canvas {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+        }
+
+        /* Force video element (camera feed) to be full screen */
+        #ar-scene video {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: cover !important;
+        }
+
+        /* ===================================================================
+           UI OVERLAY CONTAINER
+           =================================================================== */
+        #ui-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        #ui-overlay > * {
+            pointer-events: auto;
+        }
+
+        /* ===================================================================
+           LOADING SCREEN
+           =================================================================== */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loader-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #00d9ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .loader-content p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* ===================================================================
+           SCANNER INSTRUCTIONS
+           =================================================================== */
+        #scanner-instructions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            max-width: 320px;
+            width: 90%;
+            display: none;
+        }
+
+        #scanner-instructions.visible {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .scanner-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            border: 3px solid #00d9ff;
+            border-radius: 12px;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        .scanner-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #00d9ff;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        #scanner-instructions h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        #scanner-instructions p {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        /* ===================================================================
+           START BUTTON
+           =================================================================== */
+        #start-button {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #00d9ff, #0099ff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        #start-button:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        #start-button.hidden {
+            display: none;
+        }
+
+        /* ===================================================================
+           STATUS BAR
+           =================================================================== */
+        #status-bar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 13px;
+            display: none;
+            z-index: 100;
+        }
+
+        #status-bar.visible {
+            display: block;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        .status-dot.active {
+            background: #00ff88;
+            animation: none;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ===================================================================
+           INFO CARD
+           =================================================================== */
+        #info-card {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 90%;
+            width: 360px;
+            color: white;
+            display: none;
+            z-index: 100;
+        }
+
+        #info-card.visible {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(0); 
+            }
+        }
+
+        .scene-counter {
+            font-size: 12px;
+            color: #00d9ff;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .scene-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .scene-subtitle {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+
+        .scene-description {
+            font-size: 13px;
+            line-height: 1.5;
+            opacity: 0.85;
+        }
+
+        /* ===================================================================
+           NAVIGATION CONTROLS
+           =================================================================== */
+        #nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        #nav-controls.visible {
+            display: flex;
+        }
+
+        .nav-btn {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 20px;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.9);
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:disabled:active {
+            transform: none;
+        }
+
+        /* ===================================================================
+           AUDIO CONTROLS
+           =================================================================== */
+        #audio-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        #audio-toggle {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+        }
+
+        #audio-toggle:active {
+            transform: scale(0.9);
+            background: rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+
+        #audio-toggle.muted {
+            opacity: 0.5;
+        }
+
+        /* ===================================================================
+           DEBUG PANEL (Development Only)
+           =================================================================== */
+        #debug-panel {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 11px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 200px;
+            display: none;
+            z-index: 1001;
+        }
+
+        #debug-panel.visible {
+            display: block;
+        }
+
+        #debug-panel div {
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===================================================================
+         AR SCENE
+         =================================================================== -->
+    <a-scene
+        id="ar-scene"
+        embedded
+        arjs="
+            sourceType: webcam;
+            debugUIEnabled: false;
+            detectionMode: mono_and_matrix;
+            matrixCodeType: 3x3;
+            patternRatio: 0.9;
+            trackingMethod: best;
+            changeMatrixMode: modelViewMatrix;
+            maxDetectionRate: 60;
+            canvasWidth: 640;
+            canvasHeight: 480;
+        "
+        vr-mode-ui="enabled: false"
+        renderer="
+            logarithmicDepthBuffer: true;
+            precision: medium;
+            antialias: true;
+            alpha: true;
+            colorManagement: true;
+        "
+        loading-screen="enabled: false"
+    >
+        <!-- Marker dengan barcode -->
+        <a-marker
+            id="main-marker"
+            type="barcode"
+            value="0"
+            smooth="true"
+            smoothCount="5"
+            smoothTolerance="0.01"
+            smoothThreshold="2"
+            emitevents="true"
+            raycaster="objects: .clickable"
+        >
+            <!-- Full Plant Model -->
+            <a-entity
+                id="full-plant-model"
+                gltf-model="assets/FullVersion.glb"
+                position="0 0.5 0"
+                rotation="-90 0 0"
+                scale="0.5 0.5 0.5"
+                visible="false"
+            ></a-entity>
+
+            <!-- Animated Turbine Fan -->
+            <a-entity
+                id="turbine-fan-model"
+                gltf-model="assets/Turbine_Fan.glb"
+                position="0 0.8 0"
+                rotation="-90 0 0"
+                scale="0.5 0.5 0.5"
+                visible="false"
+            ></a-entity>
+        </a-marker>
+
+        <!-- Camera -->
+        <a-entity camera look-controls-enabled="false"></a-entity>
+    </a-scene>
+
+    <!-- ===================================================================
+         UI OVERLAY
+         =================================================================== -->
+    <div id="ui-overlay">
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div class="loader-content">
+                <div class="loader-icon"></div>
+                <h2>Geothermal AR</h2>
+                <p>Memuat pengalaman AR...</p>
+            </div>
+        </div>
+
+        <!-- Start Button -->
+        <button id="start-button">
+            🎯 Mulai Pengalaman AR
+        </button>
+
+        <!-- Scanner Instructions -->
+        <div id="scanner-instructions">
+            <div class="scanner-icon"></div>
+            <h3>Mencari marker...</h3>
+            <p>Arahkan kamera ke marker AR untuk memulai</p>
+        </div>
+
+        <!-- Status Bar -->
+        <div id="status-bar">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="status-text">Mencari marker...</span>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div id="info-card">
+            <div class="scene-counter" id="scene-counter">SCENE 1 / 5</div>
+            <div class="scene-title" id="scene-title">Welcome</div>
+            <div class="scene-subtitle" id="scene-subtitle">Energi Bersih dari Perut Bumi</div>
+            <div class="scene-description" id="scene-description">
+                Selamat datang di Geothermal AR! Energi panas bumi adalah sumber energi terbarukan yang dihasilkan dari panas alami bumi.
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div id="nav-controls">
+            <button id="btn-prev" class="nav-btn">◀</button>
+            <button id="btn-next" class="nav-btn">▶</button>
+        </div>
+
+        <!-- Audio Controls -->
+        <div id="audio-controls">
+            <button id="audio-toggle">🔊</button>
+        </div>
+
+        <!-- Debug Panel -->
+        <div id="debug-panel">
+            <div id="debug-marker">Marker: Not Found</div>
+            <div id="debug-scene">Scene: 0</div>
+            <div id="debug-camera">Camera: N/A</div>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="narration-audio" preload="auto"></audio>
+
+    <!-- ===================================================================
+         MAIN AR CONTROLLER SCRIPT
+         =================================================================== -->
+    <script>
+        // ====================================================================
+        // GLOBAL AR CONTROLLER
+        // ====================================================================
+        const ARController = {
+            // ----------------------------------------------------------------
+            // STATE MANAGEMENT
+            // ----------------------------------------------------------------
+            state: {
+                isInitialized: false,
+                isMarkerVisible: false,
+                currentSceneIndex: 0,
+                totalScenes: 0,
+                audioMuted: false,
+                debugMode: false
+            },
+
+            // ----------------------------------------------------------------
+            // ELEMENT REFERENCES
+            // ----------------------------------------------------------------
+            elements: {
+                scene: null,
+                marker: null,
+                camera: null,
+                fullPlantModel: null,
+                turbineFanModel: null,
+                audio: null,
+                
+                // UI Elements
+                loadingScreen: null,
+                startButton: null,
+                scannerInstructions: null,
+                statusBar: null,
+                statusText: null,
+                statusDot: null,
+                infoCard: null,
+                navControls: null,
+                btnPrev: null,
+                btnNext: null,
+                audioToggle: null,
+                debugPanel: null
+            },
+
+            // ----------------------------------------------------------------
+            // INITIALIZATION
+            // ----------------------------------------------------------------
+            init() {
+                console.log('🚀 Initializing AR Controller...');
+                
+                // Check if scene config is loaded
+                if (!window.SCENE_CONFIG || window.SCENE_CONFIG.length === 0) {
+                    console.error('❌ Scene configuration not loaded!');
+                    alert('Error: Scene configuration tidak ditemukan. Pastikan file scene-config.js sudah dimuat.');
+                    return;
+                }
+                
+                this.cacheElements();
+                this.setupEventListeners();
+                this.state.totalScenes = window.SCENE_CONFIG.length;
+                
+                console.log('✅ AR Controller initialized');
+                console.log(`📦 Total scenes: ${this.state.totalScenes}`);
+                
+                // Enable debug mode in development
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    this.state.debugMode = true;
+                    this.elements.debugPanel.classList.add('visible');
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // CACHE DOM ELEMENTS
+            // ----------------------------------------------------------------
+            cacheElements() {
+                // AR Scene elements
+                this.elements.scene = document.querySelector('#ar-scene');
+                this.elements.marker = document.querySelector('#main-marker');
+                this.elements.camera = document.querySelector('a-camera');
+                this.elements.fullPlantModel = document.querySelector('#full-plant-model');
+                this.elements.turbineFanModel = document.querySelector('#turbine-fan-model');
+                this.elements.audio = document.querySelector('#narration-audio');
+                
+                // UI elements
+                this.elements.loadingScreen = document.querySelector('#loading-screen');
+                this.elements.startButton = document.querySelector('#start-button');
+                this.elements.scannerInstructions = document.querySelector('#scanner-instructions');
+                this.elements.statusBar = document.querySelector('#status-bar');
+                this.elements.statusText = document.querySelector('#status-text');
+                this.elements.statusDot = document.querySelector('.status-dot');
+                this.elements.infoCard = document.querySelector('#info-card');
+                this.elements.navControls = document.querySelector('#nav-controls');
+                this.elements.btnPrev = document.querySelector('#btn-prev');
+                this.elements.btnNext = document.querySelector('#btn-next');
+                this.elements.audioToggle = document.querySelector('#audio-toggle');
+                this.elements.debugPanel = document.querySelector('#debug-panel');
+            },
+
+            // ----------------------------------------------------------------
+            // SETUP EVENT LISTENERS
+            // ----------------------------------------------------------------
+            setupEventListeners() {
+                // Start button
+                this.elements.startButton.addEventListener('click', () => this.startARExperience());
+                
+                // Navigation buttons
+                this.elements.btnPrev.addEventListener('click', () => this.previousScene());
+                this.elements.btnNext.addEventListener('click', () => this.nextScene());
+                
+                // Audio toggle
+                this.elements.audioToggle.addEventListener('click', () => this.toggleAudio());
+                
+                // Marker events
+                this.elements.marker.addEventListener('markerFound', () => this.onMarkerFound());
+                this.elements.marker.addEventListener('markerLost', () => this.onMarkerLost());
+                
+                // A-Frame scene loaded
+                this.elements.scene.addEventListener('loaded', () => {
+                    console.log('✅ A-Frame scene loaded');
+                    setTimeout(() => this.hideLoading(), 1000);
+                });
+                
+                // Handle orientation change
+                window.addEventListener('orientationchange', () => {
+                    setTimeout(() => this.forceCanvasResize(), 300);
+                });
+                
+                // Handle window resize
+                window.addEventListener('resize', () => this.forceCanvasResize());
+            },
+
+            // ----------------------------------------------------------------
+            // START AR EXPERIENCE
+            // ----------------------------------------------------------------
+            startARExperience() {
+                console.log('🎬 Starting AR experience...');
+                
+                // Hide start button
+                this.elements.startButton.classList.add('hidden');
+                
+                // Show scanner instructions
+                this.showScannerInstructions();
+                
+                // Load first scene
+                this.loadScene(0);
+                
+                // Force canvas resize
+                setTimeout(() => this.forceCanvasResize(), 500);
+                
+                this.state.isInitialized = true;
+            },
+
+            // ----------------------------------------------------------------
+            // MARKER FOUND
+            // ----------------------------------------------------------------
+            onMarkerFound() {
+                console.log('✅ Marker found!');
+                
+                this.state.isMarkerVisible = true;
+                
+                // Update status
+                this.elements.statusText.textContent = 'Marker terdeteksi ✓';
+                this.elements.statusDot.classList.add('active');
+                
+                // Hide scanner instructions
+                this.elements.scannerInstructions.classList.remove('visible');
+                
+                // Show info card and navigation
+                this.elements.infoCard.classList.add('visible');
+                this.elements.navControls.classList.add('visible');
+                
+                // Play audio if not muted
+                if (!this.state.audioMuted && this.elements.audio.src) {
+                    this.elements.audio.play().catch(e => console.warn('Audio play failed:', e));
+                }
+                
+                // Update debug info
+                if (this.state.debugMode) {
+                    document.querySelector('#debug-marker').textContent = 'Marker: Found ✓';
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // MARKER LOST
+            // ----------------------------------------------------------------
+            onMarkerLost() {
+                console.log('⚠️ Marker lost');
+                
+                this.state.isMarkerVisible = false;
+                
+                // Update status
+                this.elements.statusText.textContent = 'Mencari marker...';
+                this.elements.statusDot.classList.remove('active');
+                
+                // Pause audio
+                if (this.elements.audio) {
+                    this.elements.audio.pause();
+                }
+                
+                // Update debug info
+                if (this.state.debugMode) {
+                    document.querySelector('#debug-marker').textContent = 'Marker: Lost';
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // LOAD SCENE
+            // ----------------------------------------------------------------
+            loadScene(index) {
+                console.log(`📍 Loading scene ${index + 1}...`);
+                
+                const scene = window.getSceneById(index + 1);
+                if (!scene) {
+                    console.error(`❌ Scene ${index + 1} not found!`);
+                    return;
+                }
+                
+                this.state.currentSceneIndex = index;
+                
+                // Update UI
+                this.updateSceneInfo(scene);
+                this.updateModels(scene);
+                this.updateCamera(scene.camera);
+                this.updateNavButtons();
+                
+                // Load audio
+                if (scene.audio) {
+                    this.elements.audio.src = scene.audio;
+                    this.elements.audio.load();
+                    
+                    // Auto-play if marker is visible and audio is not muted
+                    if (this.state.isMarkerVisible && !this.state.audioMuted) {
+                        setTimeout(() => {
+                            this.elements.audio.play().catch(e => console.warn('Audio play failed:', e));
+                        }, 500);
+                    }
+                }
+                
+                // Update debug info
+                if (this.state.debugMode) {
+                    document.querySelector('#debug-scene').textContent = `Scene: ${index + 1}/${this.state.totalScenes}`;
+                }
+                
+                console.log(`✅ Scene ${index + 1} loaded:`, scene.title);
+            },
+
+            // ----------------------------------------------------------------
+            // UPDATE SCENE INFO (UI)
+            // ----------------------------------------------------------------
+            updateSceneInfo(scene) {
+                const counter = document.querySelector('#scene-counter');
+                const title = document.querySelector('#scene-title');
+                const subtitle = document.querySelector('#scene-subtitle');
+                const description = document.querySelector('#scene-description');
+                
+                counter.textContent = `SCENE ${scene.id} / ${this.state.totalScenes}`;
+                title.textContent = scene.title;
+                subtitle.textContent = scene.subtitle;
+                description.textContent = scene.description || '';
+            },
+
+            // ----------------------------------------------------------------
+            // UPDATE 3D MODELS
+            // ----------------------------------------------------------------
+            updateModels(scene) {
+                // Hide all models first
+                if (this.elements.fullPlantModel) {
+                    this.elements.fullPlantModel.setAttribute('visible', false);
+                }
+                if (this.elements.turbineFanModel) {
+                    this.elements.turbineFanModel.setAttribute('visible', false);
+                }
+                
+                // Show models based on scene components
+                if (scene.components && scene.components.length > 0) {
+                    scene.components.forEach(component => {
+                        if (component.name === 'full-geothermal-plant' && this.elements.fullPlantModel) {
+                            this.elements.fullPlantModel.setAttribute('visible', true);
+                            this.updateModelTransform(
+                                this.elements.fullPlantModel,
+                                component.position,
+                                component.rotation,
+                                component.scale
+                            );
+                        } else if (component.name === 'turbine-fan-animated' && this.elements.turbineFanModel) {
+                            this.elements.turbineFanModel.setAttribute('visible', true);
+                            this.updateModelTransform(
+                                this.elements.turbineFanModel,
+                                component.position,
+                                component.rotation,
+                                component.scale
+                            );
+                            
+                            // Apply animation if specified
+                            if (component.animation) {
+                                this.applyAnimation(
+                                    this.elements.turbineFanModel,
+                                    component.animation
+                                );
+                            }
+                        }
+                    });
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // UPDATE MODEL TRANSFORM
+            // ----------------------------------------------------------------
+            updateModelTransform(model, position, rotation, scale) {
+                if (position) {
+                    model.setAttribute('position', position);
+                }
+                if (rotation) {
+                    model.setAttribute('rotation', rotation);
+                }
+                if (scale) {
+                    model.setAttribute('scale', scale);
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // APPLY ANIMATION TO MODEL
+            // ----------------------------------------------------------------
+            applyAnimation(model, animationConfig) {
+                if (animationConfig.type === 'rotation') {
+                    const axis = animationConfig.axis || 'y';
+                    const speed = animationConfig.speed || 1.0;
+                    
+                    // Remove existing animation
+                    model.removeAttribute('animation');
+                    
+                    // Apply new rotation animation
+                    model.setAttribute('animation', {
+                        property: `rotation.${axis}`,
+                        to: 360,
+                        loop: true,
+                        dur: (1000 / speed) * 360,
+                        easing: 'linear'
+                    });
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // UPDATE CAMERA POSITION
+            // ----------------------------------------------------------------
+            updateCamera(cameraConfig) {
+                const camera = document.querySelector('a-camera');
+                if (!camera || !cameraConfig.position) return;
+                
+                const duration = cameraConfig.duration || 2000;
+                
+                // Animate camera position
+                camera.setAttribute('animation', {
+                    property: 'position',
+                    to: cameraConfig.position,
+                    dur: duration,
+                    easing: 'easeInOutQuad'
+                });
+            },
+
+            // ----------------------------------------------------------------
+            // NAVIGATION CONTROLS
+            // ----------------------------------------------------------------
+            nextScene() {
+                const nextIndex = this.state.currentSceneIndex + 1;
+                if (nextIndex < this.state.totalScenes) {
+                    this.loadScene(nextIndex);
+                }
+            },
+
+            previousScene() {
+                const prevIndex = this.state.currentSceneIndex - 1;
+                if (prevIndex >= 0) {
+                    this.loadScene(prevIndex);
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // UPDATE NAVIGATION BUTTONS
+            // ----------------------------------------------------------------
+            updateNavButtons() {
+                // Disable previous button on first scene
+                if (this.state.currentSceneIndex === 0) {
+                    this.elements.btnPrev.disabled = true;
+                } else {
+                    this.elements.btnPrev.disabled = false;
+                }
+                
+                // Disable next button on last scene
+                if (this.state.currentSceneIndex === this.state.totalScenes - 1) {
+                    this.elements.btnNext.disabled = true;
+                } else {
+                    this.elements.btnNext.disabled = false;
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // AUDIO CONTROLS
+            // ----------------------------------------------------------------
+            toggleAudio() {
+                this.state.audioMuted = !this.state.audioMuted;
+                
+                if (this.state.audioMuted) {
+                    this.elements.audio.pause();
+                    this.elements.audioToggle.textContent = '🔇';
+                    this.elements.audioToggle.classList.add('muted');
+                } else {
+                    if (this.state.isMarkerVisible) {
+                        this.elements.audio.play().catch(e => console.warn('Audio play failed:', e));
+                    }
+                    this.elements.audioToggle.textContent = '🔊';
+                    this.elements.audioToggle.classList.remove('muted');
+                }
+            },
+
+            // ----------------------------------------------------------------
+            // UI HELPER METHODS
+            // ----------------------------------------------------------------
+            hideLoading() {
+                this.elements.loadingScreen.classList.add('hidden');
+            },
+
+            showScannerInstructions() {
+                this.elements.scannerInstructions.classList.add('visible');
+                this.elements.statusBar.classList.add('visible');
+            },
+
+            // ----------------------------------------------------------------
+            // FORCE CANVAS RESIZE (Mobile Fix)
+            // ----------------------------------------------------------------
+            forceCanvasResize() {
+                try {
+                    const scene = document.querySelector('a-scene');
+                    if (!scene) return;
+                    
+                    const canvas = scene.querySelector('canvas');
+                    const video = document.querySelector('video');
+                    
+                    const width = window.innerWidth;
+                    const height = window.innerHeight;
+                    
+                    if (canvas) {
+                        canvas.style.width = width + 'px';
+                        canvas.style.height = height + 'px';
+                        canvas.width = width;
+                        canvas.height = height;
+                    }
+                    
+                    if (video) {
+                        video.style.width = width + 'px';
+                        video.style.height = height + 'px';
+                    }
+                    
+                    console.log('📐 Canvas resized:', width, 'x', height);
+                } catch (error) {
+                    // Silently ignore resize errors during initialization
+                }
+            }
+        };
+
+        // ----------------------------------------------------------------
+        // AUTO-INITIALIZE ON DOM READY
+        // ----------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🌐 DOM Ready, waiting for A-Frame and scene-config...');
+            
+            // Wait for scene-config.js and A-Frame to load
+            const checkReady = setInterval(() => {
+                if (window.SCENE_CONFIG && AFRAME) {
+                    clearInterval(checkReady);
+                    console.log('✅ All dependencies loaded, initializing ARController...');
+                    
+                    // Small delay to ensure everything is ready
+                    setTimeout(() => {
+                        ARController.init();
+                    }, 500);
+                }
+            }, 100);
+            
+            // Timeout after 10 seconds
+            setTimeout(() => {
+                clearInterval(checkReady);
+                if (!window.SCENE_CONFIG) {
+                    console.error('❌ Timeout: scene-config.js tidak dimuat');
+                    alert('Error: Konfigurasi scene tidak dapat dimuat. Periksa file scene-config.js');
+                }
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
