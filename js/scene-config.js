@@ -1,8 +1,8 @@
 // =============================================================================
-// GEOTHERMAL AR - SCENE CONFIGURATION (SIMPLIFIED & WORKING)
+// GEOTHERMAL AR - SCENE CONFIGURATION (CENTERED IN MARKER BOX)
 // =============================================================================
-// ✅ Kembali ke konfigurasi yang lebih stabil
-// ✅ Model vertikal (tanpa rotasi kompleks)
+// ✅ Asset pas di dalam kotak marker
+// ✅ Tepat di tengah seperti kotak putih
 // ✅ Camera zoom animation
 // =============================================================================
 
@@ -22,9 +22,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -45,9 +45,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 45, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -68,9 +68,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: -90, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -91,9 +91,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: -45, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -114,17 +114,17 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.2, z: 0 },
+                position: { x: 0, y: 0.5, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: {
                     type: "rotation",
                     axis: "y",
@@ -149,9 +149,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 30, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -172,9 +172,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 180, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -195,9 +195,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 90, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -218,9 +218,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: -135, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -241,9 +241,9 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 135, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             }
         ]
@@ -264,17 +264,17 @@ window.SCENE_CONFIG = [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0, z: 0 },
+                position: { x: 0, y: 0.3, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.2, z: 0 },
+                position: { x: 0, y: 0.5, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.2, y: 0.2, z: 0.2 },
+                scale: { x: 0.25, y: 0.25, z: 0.25 },
                 animation: {
                     type: "rotation",
                     axis: "y",
@@ -295,8 +295,8 @@ window.getTotalScenes = function () {
 };
 
 console.log('✅ Scene config loaded:', window.SCENE_CONFIG.length, 'scenes');
-console.log('🎯 Scale: 0.2 (medium size)');
-console.log('📍 Posisi: (0, 0, 0) - Tepat di tengah marker');
-console.log('🔄 Rotasi: Vertikal (tanpa rotasi X -90)');
-console.log('📷 Camera zoom: AKTIF di semua scene');
+console.log('🎯 Scale: 0.25 (pas dalam kotak marker)');
+console.log('📍 Posisi Y: 0.3 (sedikit diangkat dari marker)');
+console.log('📦 Asset akan muncul di tengah seperti kotak putih');
+console.log('📷 Camera zoom: AKTIF');
 console.log('🌀 Animasi turbine: AKTIF');
