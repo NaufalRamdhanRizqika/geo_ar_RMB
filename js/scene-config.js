@@ -20,7 +20,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -39,7 +39,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 45, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -58,7 +58,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: -90, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -77,7 +77,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: -45, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -96,7 +96,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             },
             {
@@ -104,7 +104,7 @@ window.SCENE_CONFIG = [
                 path: "assets/Turbine_Fan.glb",
                 position: { x: 0, y: 0.08, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: {
                     type: "rotation",
                     axis: "y",
@@ -127,7 +127,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 30, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -146,7 +146,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 180, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -165,7 +165,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 90, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -184,7 +184,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: -135, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -203,7 +203,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 135, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             }
         ]
@@ -222,7 +222,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: null
             },
             {
@@ -230,7 +230,7 @@ window.SCENE_CONFIG = [
                 path: "assets/Turbine_Fan.glb",
                 position: { x: 0, y: 0.08, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.15, y: 0.15, z: 0.15 },
+                scale: { x: 0.12, y: 0.12, z: 0.12 },
                 animation: {
                     type: "rotation",
                     axis: "y",
