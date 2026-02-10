@@ -789,13 +789,35 @@
 
             updateCamera(cameraConfig) {
                 const camera = document.querySelector('a-camera');
-                if (!camera || !cameraConfig.position) return;
+                if (!camera) {
+                    console.warn('⚠️ Camera not found');
+                    return;
+                }
+
+                if (!cameraConfig || !cameraConfig.position) {
+                    console.warn('⚠️ No camera config');
+                    return;
+                }
 
                 const duration = cameraConfig.duration || 2000;
 
+                // Pastikan format position benar
+                let targetPos = cameraConfig.position;
+                if (typeof targetPos === 'string') {
+                    targetPos = targetPos; // Sudah string format "x y z"
+                } else if (typeof targetPos === 'object') {
+                    targetPos = `${targetPos.x} ${targetPos.y} ${targetPos.z}`; // Convert object ke string
+                }
+
+                console.log(`📷 Camera animating to: ${targetPos} (${duration}ms)`);
+
+                // Hapus animasi lama
+                camera.removeAttribute('animation');
+
+                // Set animasi baru
                 camera.setAttribute('animation', {
                     property: 'position',
-                    to: cameraConfig.position,
+                    to: targetPos,
                     dur: duration,
                     easing: 'easeInOutQuad'
                 });
