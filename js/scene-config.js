@@ -1,13 +1,13 @@
 // =============================================================================
-// GEOTHERMAL AR - SCENE CONFIGURATION (WITH CAMERA ZOOM ANIMATION)
+// GEOTHERMAL AR - SCENE CONFIGURATION (SIMPLIFIED & WORKING)
 // =============================================================================
-// ✅ Model flat horizontal di marker
-// ✅ Animasi zoom camera ke setiap scene
-// ✅ Animasi turbine tetap aktif
+// ✅ Kembali ke konfigurasi yang lebih stabil
+// ✅ Model vertikal (tanpa rotasi kompleks)
+// ✅ Camera zoom animation
 // =============================================================================
 
 window.SCENE_CONFIG = [
-    // SCENE 1: INTRO - Overview dengan zoom out
+    // SCENE 1: INTRO
     {
         id: 1,
         title: "Selamat Datang",
@@ -23,14 +23,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 2: EARTH LAYERS - Zoom ke bawah untuk lihat layers
+    // SCENE 2: EARTH LAYERS
     {
         id: 2,
         title: "Lapisan Bumi",
@@ -38,7 +38,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Earth_Layer.mp3",
         description: "Di kedalaman 2-3 km terdapat reservoir panas bumi dengan suhu mencapai 350°C. Panas ini berasal dari inti bumi yang suhunya mencapai 5000°C!",
         camera: {
-            position: "0.3 0.3 1",
+            position: "0.5 0.5 1.2",
             duration: 2000
         },
         components: [
@@ -46,14 +46,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 45, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 45, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 3: PRODUCTION WELL - Zoom ke kiri
+    // SCENE 3: PRODUCTION WELL
     {
         id: 3,
         title: "Production Well",
@@ -61,7 +61,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Production_Well.mp3",
         description: "Production Well di sisi kiri mengebor hingga 2-3 km ke dalam bumi untuk mengambil uap panas bersuhu 150-350°C. Uap ini naik ke permukaan untuk menggerakkan turbin.",
         camera: {
-            position: "-0.4 0.4 0.8",
+            position: "-0.6 0.5 1",
             duration: 2000
         },
         components: [
@@ -69,14 +69,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: -90, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: -90, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 4: SEPARATOR - Zoom ke separator
+    // SCENE 4: SEPARATOR
     {
         id: 4,
         title: "Separator",
@@ -84,7 +84,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Separator.mp3",
         description: "Separator memisahkan uap panas dari air. Uap bersih dialirkan ke turbin, sedangkan air dikembalikan ke reservoir untuk menjaga tekanan.",
         camera: {
-            position: "-0.2 0.35 0.9",
+            position: "-0.3 0.5 1.1",
             duration: 2000
         },
         components: [
@@ -92,14 +92,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: -45, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: -45, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 5: TURBINE & GENERATOR - Zoom close ke turbine
+    // SCENE 5: TURBINE & GENERATOR (DENGAN ANIMASI)
     {
         id: 5,
         title: "Turbin & Generator",
@@ -107,7 +107,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Turbine.mp3",
         description: "Uap panas menggerakkan turbin dengan kecepatan tinggi. Turbin terhubung dengan generator yang mengubah energi kinetik menjadi energi listrik hingga 100 MW!",
         camera: {
-            position: "0 0.4 0.7",
+            position: "0 0.5 0.8",
             duration: 2000
         },
         components: [
@@ -115,26 +115,26 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.05, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0.2, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: {
                     type: "rotation",
-                    axis: "z",
+                    axis: "y",
                     speed: 2.0
                 }
             }
         ]
     },
 
-    // SCENE 6: GENERATOR - Zoom ke generator
+    // SCENE 6: GENERATOR
     {
         id: 6,
         title: "Generator",
@@ -142,7 +142,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Generator.mp3",
         description: "Generator mengubah energi kinetik dari turbin menjadi energi listrik. Satu generator dapat menghasilkan 20-100 megawatt listrik untuk ribuan rumah!",
         camera: {
-            position: "0.2 0.35 0.9",
+            position: "0.3 0.5 1.1",
             duration: 2000
         },
         components: [
@@ -150,14 +150,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 30, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 30, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 7: COOLING TOWER - Zoom ke belakang
+    // SCENE 7: COOLING TOWER
     {
         id: 7,
         title: "Cooling Tower",
@@ -165,7 +165,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Cooling_Tower.mp3",
         description: "Cooling tower mendinginkan uap panas setelah melewati turbin. Uap dikondensasi menjadi air untuk dikembalikan ke reservoir melalui injection well.",
         camera: {
-            position: "0 0.5 -0.8",
+            position: "0 0.6 1.5",
             duration: 2000
         },
         components: [
@@ -173,14 +173,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 180, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 180, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 8: INJECTION WELL - Zoom ke kanan
+    // SCENE 8: INJECTION WELL
     {
         id: 8,
         title: "Injection Well",
@@ -188,7 +188,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Injection_Well.mp3",
         description: "Injection Well di sisi kanan mengembalikan air ke reservoir bumi. Sistem tertutup ini menjaga tekanan reservoir dan memastikan energi panas bumi tetap berkelanjutan.",
         camera: {
-            position: "0.4 0.4 0.8",
+            position: "0.6 0.5 1",
             duration: 2000
         },
         components: [
@@ -196,14 +196,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 90, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 90, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 9: RESERVOIR LAYER - Zoom ke reservoir di bawah
+    // SCENE 9: RESERVOIR LAYER
     {
         id: 9,
         title: "Reservoir Panas Bumi",
@@ -211,7 +211,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Reservoir_Layer.mp3",
         description: "Reservoir panas bumi berada di kedalaman 2-3 km. Air yang tersimpan di batuan berpori dipanaskan oleh magma hingga mencapai suhu 150-350°C.",
         camera: {
-            position: "-0.3 0.3 1",
+            position: "-0.5 0.5 1.2",
             duration: 2000
         },
         components: [
@@ -219,14 +219,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: -135, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: -135, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 10: STEAM FLOW - Zoom ke pipa steam
+    // SCENE 10: STEAM FLOW
     {
         id: 10,
         title: "Aliran Uap Permukaan",
@@ -234,7 +234,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Steam_Flow_in_Surface.mp3",
         description: "Sistem pipa distribusi mengalirkan uap panas dari production well ke turbin. Tekanan uap dijaga agar turbin dapat berputar optimal.",
         camera: {
-            position: "0.3 0.35 0.9",
+            position: "0.5 0.5 1.2",
             duration: 2000
         },
         components: [
@@ -242,14 +242,14 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 135, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 135, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             }
         ]
     },
 
-    // SCENE 11: FULL CYCLE - Zoom out untuk lihat keseluruhan
+    // SCENE 11: FULL CYCLE
     {
         id: 11,
         title: "Siklus Lengkap",
@@ -257,7 +257,7 @@ window.SCENE_CONFIG = [
         audio: "audio/Outro.mp3",
         description: "Pembangkit panas bumi adalah energi terbarukan yang bersih, tersedia 24/7, dan tidak bergantung cuaca. Indonesia memiliki 40% potensi panas bumi dunia!",
         camera: {
-            position: "0 0.6 1.8",
+            position: "0 0.7 2",
             duration: 2500
         },
         components: [
@@ -265,19 +265,19 @@ window.SCENE_CONFIG = [
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.05, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0.2, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.2, y: 0.2, z: 0.2 },
                 animation: {
                     type: "rotation",
-                    axis: "z",
+                    axis: "y",
                     speed: 1.5
                 }
             }
@@ -295,8 +295,8 @@ window.getTotalScenes = function () {
 };
 
 console.log('✅ Scene config loaded:', window.SCENE_CONFIG.length, 'scenes');
-console.log('🎯 Scale: 0.1');
+console.log('🎯 Scale: 0.2 (medium size)');
 console.log('📍 Posisi: (0, 0, 0) - Tepat di tengah marker');
-console.log('🔄 Rotasi X: -90° (horizontal)');
+console.log('🔄 Rotasi: Vertikal (tanpa rotasi X -90)');
 console.log('📷 Camera zoom: AKTIF di semua scene');
 console.log('🌀 Animasi turbine: AKTIF');
