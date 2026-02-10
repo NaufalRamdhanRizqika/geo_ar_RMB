@@ -1,229 +1,256 @@
 // =============================================================================
 // GEOTHERMAL AR - SCENE CONFIGURATION
 // =============================================================================
-// This file defines all scenes in the AR experience.
-// Each scene contains:
-// - Unique ID and metadata (title, subtitle)
-// - Audio narration path
-// - 3D model components with transforms and animations
-// - Camera positioning for optimal viewing
+// ✅ Scale: 0.3 (pas dengan marker)
+// ✅ Posisi: Tepat di tengah marker (0, 0, 0)
+// ✅ Animasi turbine: AKTIF
 // =============================================================================
 
 window.SCENE_CONFIG = [
-    // =========================================================================
-    // SCENE 1: INTRO / WELCOME
-    // =========================================================================
+    // SCENE 1: INTRO
     {
         id: 1,
-        title: "Welcome",
-        subtitle: "Energi Bersih dari Perut Bumi",
-        // audio: "assets/audio/intro.mp3",
-        
-        // Scene description for info card
-        description: "Selamat datang di Geothermal AR! Energi panas bumi adalah sumber energi terbarukan yang dihasilkan dari panas alami bumi. Mari kita jelajahi bagaimana energi ini dimanfaatkan untuk menghasilkan listrik ramah lingkungan.",
-        
+        title: "Selamat Datang",
+        subtitle: "Pembangkit Listrik Tenaga Panas Bumi",
+        audio: "audio/Intro.mp3",
+        description: "Selamat datang di Geothermal AR! Mari kita eksplorasi bagaimana energi panas bumi diubah menjadi listrik ramah lingkungan.",
         components: [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0.5, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
                 animation: null
             }
-        ],
-        
-        camera: {
-            position: { x: 0, y: 1.5, z: 5 },
-            duration: 2000
-        }
+        ]
     },
-    
-    // =========================================================================
-    // SCENE 2: EARTH LAYER (Focus camera ke bagian bumi)
-    // =========================================================================
+
+    // SCENE 2: EARTH LAYERS
     {
         id: 2,
         title: "Lapisan Bumi",
-        subtitle: "Dapur Panas di Perut Bumi",
-        // audio: "assets/audio/earth_layer.mp3",
-        
-        description: "Di kedalaman bumi terdapat lapisan-lapisan dengan suhu sangat tinggi. Kerak bumi, mantel, dan inti bumi menghasilkan panas luar biasa. Suhu inti bumi mencapai 5000°C - lebih panas dari permukaan matahari!",
-        
+        subtitle: "Sumber Panas dari Perut Bumi",
+        audio: "audio/Earth_Layer.mp3",
+        description: "Di kedalaman 2-3 km terdapat reservoir panas bumi dengan suhu mencapai 350°C. Panas ini berasal dari inti bumi yang suhunya mencapai 5000°C!",
         components: [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0.5, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 45, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
                 animation: null
             }
-        ],
-        
-        camera: {
-            position: { x: 0, y: -1, z: 3 },  // Focus ke bawah (earth layers)
-            duration: 2000
-        }
+        ]
     },
-    
-    // =========================================================================
-    // SCENE 3: TURBINE WITH ANIMATION
-    // =========================================================================
+
+    // SCENE 3: PRODUCTION WELL
     {
         id: 3,
-        title: "Turbin Pembangkit",
-        subtitle: "Mengubah Uap Menjadi Listrik",
-        // audio: "assets/audio/turbine.mp3",
-        
-        description: "Uap panas bumi bertekanan tinggi menggerakkan bilah turbin dengan kecepatan tinggi. Putaran turbin menggerakkan generator yang mengubah energi kinetik menjadi energi listrik. Satu turbin dapat menghasilkan hingga 100 megawatt listrik!",
-        
+        title: "Production Well",
+        subtitle: "Sumur Produksi Uap Panas",
+        audio: "audio/Production_Well.mp3",
+        description: "Production Well di sisi kiri mengebor hingga 2-3 km ke dalam bumi untuk mengambil uap panas bersuhu 150-350°C. Uap ini naik ke permukaan untuk menggerakkan turbin.",
         components: [
-            // Base model (static)
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0.5, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: -90, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
                 animation: null
-            },
-            // Animated turbine fan (overlay di posisi yang sama)
-            {
-                name: "turbine-fan-animated",
-                path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.8, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
-                
-                animation: {
-                    type: "rotation",
-                    axis: "y",
-                    speed: 2.0
-                }
             }
-        ],
-        
-        camera: {
-            position: { x: 0, y: 0, z: 2.5 },  // Close-up ke turbine
-            duration: 2000
-        }
+        ]
     },
-    
-    // =========================================================================
-    // SCENE 4: COOLING TOWER
-    // =========================================================================
+
+    // SCENE 4: SEPARATOR
     {
         id: 4,
-        title: "Menara Pendingin",
-        subtitle: "Sistem Pendingin & Kondensasi",
-        // audio: "assets/audio/cooling_tower.mp3",
-        
-        description: "Setelah melewati turbin, uap panas perlu didinginkan agar dapat digunakan kembali. Cooling tower menggunakan udara alami untuk mengondensasi uap menjadi air. Sistem ini memastikan tidak ada limbah dan menciptakan siklus tertutup yang ramah lingkungan.",
-        
+        title: "Separator",
+        subtitle: "Pemisah Uap dan Air",
+        audio: "audio/Separator.mp3",
+        description: "Separator memisahkan uap panas dari air. Uap bersih dialirkan ke turbin, sedangkan air dikembalikan ke reservoir untuk menjaga tekanan.",
         components: [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0.5, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: -45, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
                 animation: null
             }
-        ],
-        
-        camera: {
-            position: { x: 2, y: 1, z: 4 },  // Focus ke cooling tower
-            duration: 2000
-        }
+        ]
     },
-    
-    // =========================================================================
-    // SCENE 5: OUTRO - FULL VIEW
-    // =========================================================================
+
+    // SCENE 5: TURBINE & GENERATOR (DENGAN ANIMASI)
     {
         id: 5,
-        title: "Masa Depan Hijau",
-        subtitle: "Energi Berkelanjutan untuk Generasi Mendatang",
-        // audio: "assets/audio/outro.mp3",
-        
-        description: "Pembangkit listrik tenaga panas bumi adalah solusi energi bersih masa depan. Tanpa emisi karbon, tersedia 24/7, dan tidak bergantung cuaca. Indonesia memiliki 40% potensi panas bumi dunia - saatnya memanfaatkan energi dari perut bumi untuk masa depan berkelanjutan!",
-        
+        title: "Turbin & Generator",
+        subtitle: "Konversi Energi Panas ke Listrik",
+        audio: "audio/Turbine.mp3",
+        description: "Uap panas menggerakkan turbin dengan kecepatan tinggi. Turbin terhubung dengan generator yang mengubah energi kinetik menjadi energi listrik hingga 100 MW!",
         components: [
             {
                 name: "full-geothermal-plant",
                 path: "assets/FullVersion.glb",
-                position: { x: 0, y: 0.5, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.8, z: 0 },
-                rotation: { x: -90, y: 0, z: 0 },
-                scale: { x: 0.1, y: 0.1, z: 0.1 },
+                position: { x: 0, y: 0.15, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
                 animation: {
                     type: "rotation",
                     axis: "y",
                     speed: 2.0
                 }
             }
-        ],
-        
-        camera: {
-            position: { x: 0, y: 2, z: 6 },  // Wide shot
-            duration: 3000
-        }
+        ]
+    },
+
+    // SCENE 6: GENERATOR
+    {
+        id: 6,
+        title: "Generator",
+        subtitle: "Penghasil Energi Listrik",
+        audio: "audio/Generator.mp3",
+        description: "Generator mengubah energi kinetik dari turbin menjadi energi listrik. Satu generator dapat menghasilkan 20-100 megawatt listrik untuk ribuan rumah!",
+        components: [
+            {
+                name: "full-geothermal-plant",
+                path: "assets/FullVersion.glb",
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 30, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: null
+            }
+        ]
+    },
+
+    // SCENE 7: COOLING TOWER
+    {
+        id: 7,
+        title: "Cooling Tower",
+        subtitle: "Sistem Pendingin Uap",
+        audio: "audio/Cooling_Tower.mp3",
+        description: "Cooling tower mendinginkan uap panas setelah melewati turbin. Uap dikondensasi menjadi air untuk dikembalikan ke reservoir melalui injection well.",
+        components: [
+            {
+                name: "full-geothermal-plant",
+                path: "assets/FullVersion.glb",
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 180, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: null
+            }
+        ]
+    },
+
+    // SCENE 8: INJECTION WELL
+    {
+        id: 8,
+        title: "Injection Well",
+        subtitle: "Sumur Injeksi Air Kembali",
+        audio: "audio/Injection_Well.mp3",
+        description: "Injection Well di sisi kanan mengembalikan air ke reservoir bumi. Sistem tertutup ini menjaga tekanan reservoir dan memastikan energi panas bumi tetap berkelanjutan.",
+        components: [
+            {
+                name: "full-geothermal-plant",
+                path: "assets/FullVersion.glb",
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 90, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: null
+            }
+        ]
+    },
+
+    // SCENE 9: RESERVOIR LAYER
+    {
+        id: 9,
+        title: "Reservoir Panas Bumi",
+        subtitle: "Lapisan Penyimpan Air Panas",
+        audio: "audio/Reservoir_Layer.mp3",
+        description: "Reservoir panas bumi berada di kedalaman 2-3 km. Air yang tersimpan di batuan berpori dipanaskan oleh magma hingga mencapai suhu 150-350°C.",
+        components: [
+            {
+                name: "full-geothermal-plant",
+                path: "assets/FullVersion.glb",
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: -135, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: null
+            }
+        ]
+    },
+
+    // SCENE 10: STEAM FLOW
+    {
+        id: 10,
+        title: "Aliran Uap Permukaan",
+        subtitle: "Distribusi Uap ke Turbin",
+        audio: "audio/Steam_Flow_in_Surface.mp3",
+        description: "Sistem pipa distribusi mengalirkan uap panas dari production well ke turbin. Tekanan uap dijaga agar turbin dapat berputar optimal.",
+        components: [
+            {
+                name: "full-geothermal-plant",
+                path: "assets/FullVersion.glb",
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 135, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: null
+            }
+        ]
+    },
+
+    // SCENE 11: FULL CYCLE
+    {
+        id: 11,
+        title: "Siklus Lengkap",
+        subtitle: "Energi Bersih & Berkelanjutan",
+        audio: "audio/Outro.mp3",
+        description: "Pembangkit panas bumi adalah energi terbarukan yang bersih, tersedia 24/7, dan tidak bergantung cuaca. Indonesia memiliki 40% potensi panas bumi dunia!",
+        components: [
+            {
+                name: "full-geothermal-plant",
+                path: "assets/FullVersion.glb",
+                position: { x: 0, y: 0, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: null
+            },
+            {
+                name: "turbine-fan-animated",
+                path: "assets/Turbine_Fan.glb",
+                position: { x: 0, y: 0.15, z: 0 },
+                rotation: { x: 0, y: 0, z: 0 },
+                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                animation: {
+                    type: "rotation",
+                    axis: "y",
+                    speed: 1.5
+                }
+            }
+        ]
     }
 ];
 
-// =============================================================================
-// CONFIGURATION HELPERS
-// =============================================================================
-
-/**
- * Get scene by ID
- * @param {number} id - Scene ID
- * @returns {object|null} Scene configuration object
- */
-window.getSceneById = function(id) {
+// HELPERS
+window.getSceneById = function (id) {
     return window.SCENE_CONFIG.find(scene => scene.id === id) || null;
 };
 
-/**
- * Get total number of scenes
- * @returns {number} Total scene count
- */
-window.getTotalScenes = function() {
+window.getTotalScenes = function () {
     return window.SCENE_CONFIG.length;
 };
 
-/**
- * Validate scene configuration
- * Checks if all required fields are present
- * @returns {boolean} True if configuration is valid
- */
-window.validateSceneConfig = function() {
-    const requiredFields = ['id', 'title', 'subtitle', 'audio', 'components', 'camera'];
-    
-    for (let i = 0; i < window.SCENE_CONFIG.length; i++) {
-        const scene = window.SCENE_CONFIG[i];
-        
-        for (const field of requiredFields) {
-            if (!scene.hasOwnProperty(field)) {
-                console.error(`❌ Scene ${i + 1} missing required field: ${field}`);
-                return false;
-            }
-        }
-    }
-    
-    console.log('✅ Scene configuration is valid');
-    return true;
-};
-
-// Auto-validate on load (development only)
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    window.validateSceneConfig();
-}
+console.log('✅ Scene config loaded:', window.SCENE_CONFIG.length, 'scenes');
+console.log('🎯 Scale: 0.3 (pas dengan marker)');
+console.log('📍 Posisi: Tepat di tengah marker (0, 0, 0)');
+console.log('🔄 Animasi turbine: AKTIF');

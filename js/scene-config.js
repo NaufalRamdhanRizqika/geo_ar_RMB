@@ -1,7 +1,7 @@
 // =============================================================================
 // GEOTHERMAL AR - SCENE CONFIGURATION
 // =============================================================================
-// ✅ Scale: 0.3 (pas dengan marker)
+// ✅ Scale: 0.15 (optimized untuk HP)
 // ✅ Posisi: Tepat di tengah marker (0, 0, 0)
 // ✅ Animasi turbine: AKTIF
 // =============================================================================
@@ -20,7 +20,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -39,7 +39,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 45, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -58,7 +58,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: -90, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -77,7 +77,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: -45, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -96,15 +96,15 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.15, z: 0 },
+                position: { x: 0, y: 0.08, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: {
                     type: "rotation",
                     axis: "y",
@@ -127,7 +127,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 30, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -146,7 +146,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 180, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -165,7 +165,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 90, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -184,7 +184,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: -135, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -203,7 +203,7 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 135, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             }
         ]
@@ -222,15 +222,15 @@ window.SCENE_CONFIG = [
                 path: "assets/FullVersion.glb",
                 position: { x: 0, y: 0, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: null
             },
             {
                 name: "turbine-fan-animated",
                 path: "assets/Turbine_Fan.glb",
-                position: { x: 0, y: 0.15, z: 0 },
+                position: { x: 0, y: 0.08, z: 0 },
                 rotation: { x: 0, y: 0, z: 0 },
-                scale: { x: 0.3, y: 0.3, z: 0.3 },
+                scale: { x: 0.15, y: 0.15, z: 0.15 },
                 animation: {
                     type: "rotation",
                     axis: "y",
@@ -250,7 +250,7 @@ window.getTotalScenes = function () {
     return window.SCENE_CONFIG.length;
 };
 
-console.log('✅ Scene config loaded:', window.SCENE_CONFIG.length, 'scenes');
-console.log('🎯 Scale: 0.3 (pas dengan marker)');
-console.log('📍 Posisi: Tepat di tengah marker (0, 0, 0)');
-console.log('🔄 Animasi turbine: AKTIF');
+console.log('Scene config loaded:', window.SCENE_CONFIG.length, 'scenes');
+console.log('Scale: 0.15 (optimized untuk HP)');
+console.log('Posisi: Tepat di tengah marker (0, 0, 0)');
+console.log('Animasi turbine: AKTIF');
